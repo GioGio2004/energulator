@@ -1,0 +1,12 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "home": {
+    "title": "Welcome to Energulator",
+    "description": "Get started by editing the page.tsx file.",
+    "deployNow": "Deploy Now",
+    "documentation": "Documentation"
+  }
+}

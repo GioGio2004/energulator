@@ -1,0 +1,27 @@
+{
+  "name": "Energulator — Smart Energy Savings",
+  "short_name": "Energulator",
+  "description": "Find your optimal energy rate and start saving today.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#2d5a27",
+  "background_color": "#f0f7ee",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "categories": ["utilities", "finance"],
+  "screenshots": []
+}

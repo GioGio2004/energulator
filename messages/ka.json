@@ -1,0 +1,12 @@
+{
+  "common": {
+    "signIn": "შესვლა",
+    "signUp": "რეგისტრაცია"
+  },
+  "home": {
+    "title": "მოგესალმებათ Energulator",
+    "description": "დასაწყებად შეცვალეთ page.tsx ფაილი.",
+    "deployNow": "განლაგება",
+    "documentation": "დოკუმენტაცია"
+  }
+}
