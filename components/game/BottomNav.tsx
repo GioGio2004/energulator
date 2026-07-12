@@ -26,7 +26,7 @@ export default function BottomNav() {
   })();
 
   return (
-    <div className="fixed bottom-6 inset-x-0 z-50 px-4 flex justify-center pointer-events-none pb-safe">
+    <div className="fixed bottom-0 inset-x-0 z-50 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+1.5rem)] flex justify-center pointer-events-none">
       <nav className="pointer-events-auto relative flex items-center justify-between w-full max-w-md glass-panel-light rounded-[2rem] h-[68px] px-1.5">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
