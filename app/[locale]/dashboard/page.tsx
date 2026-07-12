@@ -57,8 +57,32 @@ export default function DashboardPage() {
     <div className="fixed top-0 inset-x-0 h-[100dvh] bg-app-global flex flex-col overflow-hidden text-gray-900 overscroll-none">
       <TopHeader />
       
-      <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide">
-        <LearningMap />
+      <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide relative pt-20">
+        
+        {/* Ultimate Game Button Banner */}
+        <div className="px-4 mb-4 relative z-10 w-full max-w-md mx-auto">
+          <a
+            href="https://myenergy-three.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-[#1cb0f6] text-white p-4 rounded-[2rem] shadow-lg border-b-[4px] border-blue-700 active:border-b-0 active:translate-y-[4px] transition-all cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-3xl drop-shadow-md">🎮</span>
+              <div>
+                <h3 className="font-black text-lg tracking-wide uppercase drop-shadow-sm">The Ultimate Game</h3>
+                <p className="font-medium text-blue-100 text-sm">Play the new experience</p>
+              </div>
+            </div>
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <div className="-mt-20">
+          <LearningMap />
+        </div>
       </main>
 
       <BottomNav />
