@@ -8,10 +8,17 @@ export default defineSchema({
     externalId: v.string(),
     onboarding: v.optional(
       v.object({
-        tariff: v.string(),
-        monthlyBill: v.number(),
+        baseType: v.optional(v.string()),
+        monthlyBill: v.optional(v.number()),
+        tariff: v.optional(v.string()),
       })
     ),
     isOnboarded: v.optional(v.boolean()),
+    // Game fields
+    watts: v.optional(v.number()),
+    streak: v.optional(v.number()),
+    lastActiveTimestamp: v.optional(v.number()),
+    currentModuleId: v.optional(v.string()),
+    completedLessons: v.optional(v.array(v.string())),
   }).index("byExternalId", ["externalId"]),
 });

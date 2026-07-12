@@ -22,7 +22,14 @@ export const upsertFromClerk = internalMutation({
       .unique();
 
     if (existing === null) {
-      await ctx.db.insert("users", { name, externalId: clerkUserId });
+      await ctx.db.insert("users", { 
+        name, 
+        externalId: clerkUserId,
+        watts: 0,
+        streak: 0,
+        currentModuleId: "module_electricity_1",
+        completedLessons: [],
+      });
     } else {
       await ctx.db.patch(existing._id, { name });
     }
@@ -54,8 +61,7 @@ export const deleteFromClerk = internalMutation({
  */
 export const saveOnboardingData = mutation({
   args: {
-    tariff: v.string(),
-    monthlyBill: v.number(),
+    baseType: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -74,6 +80,10 @@ export const saveOnboardingData = mutation({
       const newUserId = await ctx.db.insert("users", {
         name,
         externalId: identity.subject,
+        watts: 0,
+        streak: 0,
+        currentModuleId: "module_electricity_1",
+        completedLessons: [],
       });
       user = await ctx.db.get(newUserId);
     }
@@ -84,8 +94,7 @@ export const saveOnboardingData = mutation({
 
     await ctx.db.patch(user._id, {
       onboarding: {
-        tariff: args.tariff,
-        monthlyBill: args.monthlyBill,
+        baseType: args.baseType,
       },
       isOnboarded: true,
     });

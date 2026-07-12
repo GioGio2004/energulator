@@ -1,11 +1,13 @@
 "use client";
 
-import AnalyticsDashboard from "@/components/AnalyticsDashboard";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import TopHeader from "@/components/game/TopHeader";
+import BottomNav from "@/components/game/BottomNav";
+import LearningMap from "@/components/game/LearningMap";
 
 export default function DashboardPage() {
   const { isSignedIn, isLoaded: clerkLoaded } = useUser();
@@ -34,11 +36,7 @@ export default function DashboardPage() {
     }
   }, [clerkLoaded, isSignedIn, user, locale, router]);
 
-  // Show spinner while:
-  // 1. Clerk hasn't resolved yet
-  // 2. User is not signed in (redirect is pending)
-  // 3. Convex hasn't resolved the user record yet
-  // 4. User is not onboarded (redirect to onboarding is pending)
+  // Show spinner while resolving auth/onboarding
   const isReady =
     clerkLoaded &&
     isSignedIn &&
@@ -48,11 +46,22 @@ export default function DashboardPage() {
 
   if (!isReady) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f0f7ee]">
+      <div className="min-h-screen flex items-center justify-center bg-[#f9faf8]">
         <div className="w-10 h-10 border-4 border-[#2d5a27]/25 border-t-[#2d5a27] rounded-full animate-spin" />
       </div>
     );
   }
 
-  return <AnalyticsDashboard />;
+  // The Learning Map layout prevents body scroll and manages its own internal overflow
+  return (
+    <div className="fixed inset-0 bg-[#f9faf8] flex flex-col overflow-hidden">
+      <TopHeader />
+      
+      <main className="flex-1 overflow-y-auto overscroll-contain pb-20 scrollbar-hide">
+        <LearningMap />
+      </main>
+
+      <BottomNav />
+    </div>
+  );
 }

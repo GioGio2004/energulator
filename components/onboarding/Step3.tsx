@@ -1,90 +1,119 @@
-import { motion } from "framer-motion";
-import type { OnboardingData } from "../OnboardingFlow";
+import { motion, useAnimation } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 
-export default function Step3({ data }: { data: OnboardingData }) {
-  const regional = Math.round(data.monthlyBill * 1.18);
-  const optimized = Math.round(data.monthlyBill * 0.79);
-  const savedMonthly = regional - optimized;
-  const savedAnnual = savedMonthly * 12;
+export default function Step3({ onNext }: { onNext: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (progress >= 100 && !isSuccess) {
+      setIsSuccess(true);
+      controls.start({
+        scale: [1, 1.2, 1],
+        filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
+        transition: { duration: 0.5 }
+      });
+      setTimeout(() => {
+        onNext();
+      }, 1500);
+    }
+  }, [progress, isSuccess, controls, onNext]);
+
+  const startCharging = () => {
+    if (isSuccess) return;
+    intervalRef.current = setInterval(() => {
+      setProgress((p) => Math.min(p + 4, 100)); // Fills up in about 1-2 seconds
+    }, 50);
+  };
+
+  const stopCharging = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (!isSuccess) {
+      // Degrade quickly if they let go
+      intervalRef.current = setInterval(() => {
+        setProgress((p) => {
+          if (p <= 0) {
+            clearInterval(intervalRef.current!);
+            return 0;
+          }
+          return Math.max(p - 6, 0);
+        });
+      }, 50);
+    }
+  };
 
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 rounded-full px-3 py-1 mb-3">
-          <span className="text-base">⚠️</span>
-          <span className="text-xs font-bold text-red-700 uppercase tracking-widest">
-            Hidden Cost Alert
-          </span>
-        </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-[#1a1a1a] leading-tight mb-2">
-          Don't lose money to hidden rates.
-        </h2>
-        <p className="text-base text-[#555] leading-relaxed">
-          Based on your tariff and bill, here's what you're likely overpaying.
-        </p>
-      </div>
-
-      {/* Comparison cards */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 flex flex-col items-center text-center">
-          <span className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">
-            Regional Cost
-          </span>
-          <span className="text-3xl sm:text-4xl font-black text-red-700 leading-none">
-            ${regional}
-          </span>
-          <span className="text-xs text-red-500 mt-1 font-semibold">
-            /month
-          </span>
-          <span className="text-xs text-red-400 mt-2 leading-tight">
-            Standard rate average
-          </span>
-        </div>
-        <div className="bg-[#f0f7ee] border-2 border-[#2d5a27]/40 rounded-2xl p-4 flex flex-col items-center text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2d5a27] to-[#4a8c42]" />
-          <span className="text-xs font-bold text-[#2d5a27] uppercase tracking-wide mb-2">
-            Your Cost
-          </span>
-          <span className="text-3xl sm:text-4xl font-black text-[#2d5a27] leading-none">
-            ${optimized}
-          </span>
-          <span className="text-xs text-[#4a8c42] mt-1 font-semibold">
-            /month
-          </span>
-          <span className="text-xs text-[#666] mt-2 leading-tight">
-            With Energulator
-          </span>
-        </div>
-      </div>
-
-      {/* Loss aversion banner */}
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.18 }}
-        className="bg-gradient-to-br from-[#1a1a1a] to-[#2d5a27] rounded-2xl p-5 text-white"
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <motion.h2 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-3xl font-black text-[#2d5a27] mb-12 text-center"
       >
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-2xl">💸</span>
-          <div>
-            <p className="text-base font-black leading-tight">
-              You're losing ${savedMonthly}/month
-            </p>
-            <p className="text-xs text-white/70">to rates you didn't choose</p>
-          </div>
-        </div>
-        <div className="bg-white/10 rounded-xl px-4 py-3 text-center">
-          <p className="text-2xl font-black text-[#a8e89c]">
-            ${savedAnnual.toLocaleString()}
-          </p>
-          <p className="text-xs text-white/75 mt-0.5">
-            potential annual savings
-          </p>
-        </div>
-        <p className="text-xs text-white/65 mt-3 text-center leading-relaxed">
-          Every month you wait is money gone for good. Fix it now — it's free.
-        </p>
+        Power up the core!
+      </motion.h2>
+
+      {/* Core SVG */}
+      <motion.div 
+        animate={controls}
+        className="relative w-48 h-48 mb-16"
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl">
+          {/* Outer Ring */}
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#e0e5df" strokeWidth="8" />
+          {/* Progress Ring */}
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="45" 
+            fill="none" 
+            stroke={isSuccess ? "#b4c5b0" : "#8a9eb5"} 
+            strokeWidth="8" 
+            strokeLinecap="round"
+            strokeDasharray="283"
+            strokeDashoffset={283 - (283 * progress) / 100}
+            className="transition-all duration-75 ease-out origin-center -rotate-90"
+          />
+          {/* Inner Core */}
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="30" 
+            fill={isSuccess ? "#b4c5b0" : "#f0f4ef"} 
+            className="transition-colors duration-300"
+          />
+          {isSuccess && (
+            <text x="50" y="60" fontSize="30" textAnchor="middle" fill="white">⚡</text>
+          )}
+        </svg>
+        
+        {/* Glow effect */}
+        <div 
+          className="absolute inset-0 bg-[#b4c5b0] rounded-full blur-2xl -z-10 transition-opacity duration-300"
+          style={{ opacity: progress / 100 }}
+        />
       </motion.div>
+
+      {/* Interaction Button */}
+      <div className="relative w-full max-w-xs h-24">
+        <motion.button
+          onPointerDown={startCharging}
+          onPointerUp={stopCharging}
+          onPointerLeave={stopCharging}
+          className="absolute inset-0 w-full h-full bg-[#f0f4ef] rounded-3xl border-4 border-[#8a9eb5]/20 flex items-center justify-center overflow-hidden touch-none"
+          whileTap={{ scale: 0.95 }}
+        >
+          {/* Fluid Fill inside button */}
+          <div 
+            className="absolute bottom-0 inset-x-0 bg-[#8a9eb5]/30 transition-all duration-75 ease-out"
+            style={{ height: `${progress}%` }}
+          />
+          <span className="relative z-10 text-xl font-black text-[#5c6e80] select-none">
+            {isSuccess ? "FULLY CHARGED!" : "HOLD TO POWER UP"}
+          </span>
+        </motion.button>
+      </div>
     </div>
   );
 }

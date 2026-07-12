@@ -22,20 +22,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Energulator — Smart Energy Savings",
-    template: "%s | Energulator",
+    default: "MyEnerge — Smart Energy Savings",
+    template: "%s | MyEnerge",
   },
   description:
-    "Find your optimal energy tariff and start saving immediately. Energulator analyses your bill and matches you with the best rate.",
+    "Find your optimal energy tariff and start saving immediately. MyEnerge analyses your bill and matches you with the best rate.",
   keywords: ["energy savings", "energy tariff", "electricity bill", "energy comparison", "smart tariff"],
-  authors: [{ name: "Energulator" }],
-  creator: "Energulator",
-  applicationName: "Energulator",
+  authors: [{ name: "MyEnerge" }],
+  creator: "MyEnerge",
+  applicationName: "MyEnerge",
   manifest: "/site.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Energulator",
+    title: "MyEnerge",
     startupImage: [
       {
         url: "/apple-touch-icon.png",
@@ -54,13 +54,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "Energulator — Smart Energy Savings",
+    title: "MyEnerge — Smart Energy Savings",
     description: "Find your optimal energy tariff and start saving immediately.",
-    siteName: "Energulator",
+    siteName: "MyEnerge",
   },
   twitter: {
     card: "summary",
-    title: "Energulator — Smart Energy Savings",
+    title: "MyEnerge — Smart Energy Savings",
     description: "Find your optimal energy tariff and start saving immediately.",
   },
   formatDetection: {
