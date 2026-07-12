@@ -56,9 +56,11 @@ export default function DashboardPage() {
   return (
     <div className="fixed top-0 inset-x-0 h-[100dvh] bg-app-global flex flex-col overflow-hidden text-gray-900 overscroll-none">
       <TopHeader />
-      
+
       <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide relative pt-20">
-        
+        <div className="-mt-20">
+          <LearningMap />
+        </div>
         {/* Ultimate Game Button Banner */}
         <div className="px-4 mb-4 relative z-10 w-full max-w-md mx-auto">
           <a
@@ -70,18 +72,28 @@ export default function DashboardPage() {
             <div className="flex items-center gap-3">
               <span className="text-3xl drop-shadow-md">🎮</span>
               <div>
-                <h3 className="font-black text-lg tracking-wide uppercase drop-shadow-sm">The Ultimate Game</h3>
-                <p className="font-medium text-blue-100 text-sm">Play the new experience</p>
+                <h3 className="font-black text-lg tracking-wide uppercase drop-shadow-sm">
+                  The Ultimate Game
+                </h3>
+                <p className="font-medium text-blue-100 text-sm">
+                  Play the new experience
+                </p>
               </div>
             </div>
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" />
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="3"
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </a>
-        </div>
-
-        <div className="-mt-20">
-          <LearningMap />
         </div>
       </main>
 
