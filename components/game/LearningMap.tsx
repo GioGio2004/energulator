@@ -133,52 +133,107 @@ export default function LearningMap() {
               onClick={() => setSelectedModule(null)}
             />
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
             >
-              <div className="glass-panel-light rounded-3xl p-6 w-full max-w-sm pointer-events-auto shadow-2xl">
-                {MODULES_MAP.map(m => {
-                  if (m.id !== selectedModule) return null;
-                  const title = t(`${m.tPrefix}_title` as const);
-                  const desc = t(`${m.tPrefix}_desc` as const);
-                  return (
-                    <div key={m.id} className="flex flex-col">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-2xl font-black text-gray-900 leading-tight">{title}</h3>
-                        <button 
-                          onClick={() => setSelectedModule(null)}
-                          className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition-colors flex-shrink-0"
+              {/* ── COMING SOON popup for the 3D stage ── */}
+              {selectedModule === "module_electricity_1" ? (
+                <div className="relative w-full max-w-sm pointer-events-auto overflow-hidden rounded-3xl shadow-2xl bg-[#0d0d1a] border border-white/10">
+                  {/* Ambient glows */}
+                  <div className="absolute -top-20 -left-20 w-56 h-56 bg-[#7c3aed]/25 rounded-full blur-[80px] pointer-events-none" />
+                  <div className="absolute -bottom-20 -right-20 w-56 h-56 bg-[#1cb0f6]/15 rounded-full blur-[80px] pointer-events-none" />
+
+                  <div className="relative z-10 p-6 flex flex-col items-center text-center">
+                    {/* Close */}
+                    <button
+                      onClick={() => setSelectedModule(null)}
+                      className="absolute top-4 right-4 text-white/40 hover:text-white/80 bg-white/5 hover:bg-white/10 rounded-full p-1.5 transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+
+                    {/* Icon */}
+                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 mt-2 shadow-[0_0_40px_rgba(124,58,237,0.35)]">
+                      <svg className="w-10 h-10 text-[#a78bfa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+
+                    {/* Badge */}
+                    <span className="inline-flex items-center gap-2 bg-[#7c3aed]/20 border border-[#7c3aed]/40 text-[#c4b5fd] text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1 rounded-full mb-4">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-ping" />
+                      Coming Soon
+                    </span>
+
+                    <h3 className="text-2xl font-black text-white mb-2 leading-tight">
+                      3D Room Explorer
+                    </h3>
+                    <p className="text-white/50 text-sm font-medium leading-relaxed mb-6">
+                      We&apos;re putting the finishing touches on an interactive 3D home experience — walk through a real room, flip the lights, and watch your bill change live.
+                    </p>
+
+                    {/* Divider with "stay tuned" */}
+                    <div className="w-full flex items-center gap-3 mb-6">
+                      <div className="flex-1 h-px bg-white/10" />
+                      <span className="text-[10px] text-white/30 font-bold tracking-widest uppercase">Stay tuned</span>
+                      <div className="flex-1 h-px bg-white/10" />
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedModule(null)}
+                      className="w-full flex items-center justify-center gap-2 bg-white/8 hover:bg-white/12 border border-white/15 text-white font-bold text-sm py-3.5 rounded-2xl transition-all active:scale-95"
+                    >
+                      Got it, I&apos;ll wait!
+                    </button>
+                  </div>
+                </div>
+
+              ) : (
+                /* ── Normal Start Mission popup for all other stages ── */
+                <div className="glass-panel-light rounded-3xl p-6 w-full max-w-sm pointer-events-auto shadow-2xl">
+                  {MODULES_MAP.map(m => {
+                    if (m.id !== selectedModule) return null;
+                    const title = t(`${m.tPrefix}_title` as const);
+                    const desc = t(`${m.tPrefix}_desc` as const);
+                    return (
+                      <div key={m.id} className="flex flex-col">
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="text-2xl font-black text-gray-900 leading-tight">{title}</h3>
+                          <button
+                            onClick={() => setSelectedModule(null)}
+                            className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition-colors flex-shrink-0"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        <p className="text-gray-600 font-medium mb-6">{desc}</p>
+
+                        <div className="flex items-center gap-3 bg-blue-50/80 p-4 rounded-2xl border-2 border-blue-100 mb-6 shadow-sm">
+                          <span className="text-3xl drop-shadow-sm">💎</span>
+                          <div>
+                            <p className="text-[11px] font-bold text-[#1cb0f6] uppercase tracking-wider">{t('reward')}</p>
+                            <p className="text-lg font-black text-blue-900">+50 {t('watts')}</p>
+                          </div>
+                        </div>
+
+                        <button
+                          className="w-full bg-[#58cc02] border-b-[6px] border-[#46a302] hover:bg-[#61e002] active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all"
+                          onClick={() => router.push(`/${locale}/play/${selectedModule}`)}
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
+                          {t('startMission')}
                         </button>
                       </div>
-                      <p className="text-gray-600 font-medium mb-6">{desc}</p>
-                      
-                      <div className="flex items-center gap-3 bg-blue-50/80 p-4 rounded-2xl border-2 border-blue-100 mb-6 shadow-sm">
-                        <span className="text-3xl drop-shadow-sm">💎</span>
-                        <div>
-                          <p className="text-[11px] font-bold text-[#1cb0f6] uppercase tracking-wider">{t('reward')}</p>
-                          <p className="text-lg font-black text-blue-900">+50 {t('watts')}</p>
-                        </div>
-                      </div>
-
-                      <button
-                        className="w-full bg-[#58cc02] border-b-[6px] border-[#46a302] hover:bg-[#61e002] active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all"
-                        onClick={() => {
-                          router.push(`/${locale}/play/${selectedModule}`);
-                        }}
-                      >
-                        {t('startMission')}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           </>
         )}
