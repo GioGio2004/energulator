@@ -10,8 +10,6 @@
   --brand-dark: #1e3d1b;
   --brand-light: #4a8c42;
   --surface: #ffffff;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -42,6 +40,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
 }
 
 @theme inline {
@@ -240,13 +240,13 @@ input[type="range"] {
     background-attachment: fixed;
     background-repeat: no-repeat;
   }
-  
+
   @media (min-width: 768px) {
     .bg-app-global {
       background-image: url('/desktopbg.jpg');
     }
   }
-  
+
   .glass-panel-light {
     @apply bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)];
   }
