@@ -11,7 +11,7 @@ export default function Step1({ onNext }: { onNext: () => void }) {
         className="relative bg-white rounded-3xl p-6 shadow-xl border border-[#b4c5b0]/30 mb-8 max-w-xs"
       >
         <p className="text-xl font-black text-[#2d5a27] leading-snug">
-          "Our ship needs power! Help me decode Earth's energy grid."
+          &quot;Our ship needs power! Help me decode Earth&apos;s energy grid.&quot;
         </p>
         {/* Tail */}
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-t-[20px] border-t-white border-r-[16px] border-r-transparent filter drop-shadow-sm" />

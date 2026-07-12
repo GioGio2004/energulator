@@ -6,7 +6,7 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createIntlMiddleware(routing);
 
 export default clerkMiddleware(async (auth, request) => {
-  const { userId, sessionClaims } = await auth();
+  const { userId } = await auth();
   const url = request.nextUrl;
 
   // Extract locale from the path if present. Next-intl routing uses /en, /es etc.

@@ -6,7 +6,6 @@ import { mutation, query } from "./_generated/server";
  */
 export const getGameStatus = query({
   args: {},
-
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {

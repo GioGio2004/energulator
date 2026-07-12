@@ -9,6 +9,7 @@ export default function Step3({ onNext }: { onNext: () => void }) {
 
   useEffect(() => {
     if (progress >= 100 && !isSuccess) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsSuccess(true);
       controls.start({
         scale: [1, 1.2, 1],

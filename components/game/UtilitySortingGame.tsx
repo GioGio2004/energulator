@@ -40,6 +40,7 @@ export default function UtilitySortingGame({ moduleId, locale }: { moduleId: str
 
   const currentItem = ITEMS[currentIndex];
 
+  // eslint-disable-next-line react-hooks/refs
   const handleCategorySelect = contextSafe((category: "electricity" | "water" | "gas", buttonElement: HTMLElement | null) => {
     if (!currentItem || isSubmitting) return;
 

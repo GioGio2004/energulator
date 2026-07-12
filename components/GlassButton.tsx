@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, forwardRef } from "react";
 
-export interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+export type GlassButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
   ({ className = "", children, ...props }, ref) => {
