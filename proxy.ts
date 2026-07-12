@@ -5,31 +5,43 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
+// Routes that signed-in users should NOT be redirected away from
+const AUTH_ROUTES = ["/sign-in", "/sign-up", "/onboarding", "/sso-callback"];
+
 export default clerkMiddleware(async (auth, request) => {
   const { userId } = await auth();
   const url = request.nextUrl;
-
-  // Extract locale from the path if present. Next-intl routing uses /en, /es etc.
-  const localeMatch = url.pathname.match(/^\/([a-zA-Z-]+)/);
-  const locale = localeMatch ? localeMatch[1] : routing.defaultLocale;
 
   const isApiRoute =
     url.pathname.startsWith("/api") ||
     url.pathname.startsWith("/trpc") ||
     url.pathname.startsWith("/__clerk");
 
-  // Basic check to see if the user is authenticated and we are not on an API route
-  if (userId && !isApiRoute) {
-    if (url.pathname === `/${locale}`) {
-      // Basic redirect from landing page to dashboard for authenticated users.
-      // (The dashboard component itself will check Convex database to see if they need onboarding)
-      const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
-      return NextResponse.redirect(dashboardUrl);
-    }
-  }
-
   if (isApiRoute) {
     return NextResponse.next();
+  }
+
+  // Detect locale by checking the first path segment against supported locales
+  const segments = url.pathname.split("/").filter(Boolean);
+  const firstSegment = segments[0] ?? "";
+  const locale = (routing.locales as readonly string[]).includes(firstSegment)
+    ? firstSegment
+    : routing.defaultLocale;
+
+  // The path after stripping the locale prefix
+  const pathWithoutLocale = segments.slice(locale === firstSegment ? 1 : 0).join("/");
+
+  const isAuthRoute = AUTH_ROUTES.some((r) =>
+    pathWithoutLocale.startsWith(r.replace("/", ""))
+  );
+
+  // Redirect authenticated users away from the bare landing page to dashboard
+  // but NOT away from auth/onboarding routes (avoid redirect loops)
+  if (userId && !isAuthRoute) {
+    const isLanding = url.pathname === `/${locale}` || url.pathname === "/";
+    if (isLanding) {
+      return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
+    }
   }
 
   return intlMiddleware(request);
@@ -38,7 +50,7 @@ export default clerkMiddleware(async (auth, request) => {
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|riv)).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
     // Always run for Clerk-specific frontend API routes

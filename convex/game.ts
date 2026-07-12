@@ -8,18 +8,14 @@ export const getGameStatus = query({
   args: {},
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthenticated call to getGameStatus");
-    }
+    if (!identity) return null;
 
     const user = await ctx.db
       .query("users")
       .withIndex("byExternalId", (q) => q.eq("externalId", identity.subject))
       .unique();
 
-    if (!user) {
-      throw new Error("User not found");
-    }
+    if (!user) return null;
 
     return {
       streak: user.streak ?? 0,

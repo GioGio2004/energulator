@@ -24,19 +24,18 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#edf3eb] overflow-hidden">
-      
       {/* Animated Hanging Lightbulb */}
-      <motion.div 
+      <motion.div
         initial={{ y: "-100%" }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 80, damping: 12, delay: 0.2 }}
         className="absolute left-[-20px] md:left-[5%] top-0 flex flex-col items-center pointer-events-none"
       >
-        <Image 
-          src="/lightbulb.png" 
-          alt="Hanging Lightbulb" 
-          width={250} 
-          height={600} 
+        <Image
+          src="/lightbulb.png"
+          alt="Hanging Lightbulb"
+          width={250}
+          height={600}
           priority
           className="object-contain opacity-95 drop-shadow-xl"
         />
@@ -44,7 +43,7 @@ export default function Home() {
 
       {/* Main Content Center */}
       <div className="relative z-10 flex flex-col items-center justify-center p-6 text-center mt-12">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -52,8 +51,8 @@ export default function Home() {
         >
           MyEnerge
         </motion.h1>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
@@ -63,9 +62,11 @@ export default function Home() {
             href={getStartedHref}
             className="bg-[#2d5a27] text-white px-8 py-3 rounded-[1.25rem] font-bold shadow-[0_4px_14px_rgba(45,90,39,0.3)] hover:bg-[#1e3d1b] hover:-translate-y-0.5 transition-all"
           >
-            {isSignedIn && convexUser?.isOnboarded ? "Go to Dashboard" : "Get Started"}
+            {isSignedIn && convexUser?.isOnboarded
+              ? "Go to Dashboard"
+              : "Get Started"}
           </Link>
-          
+
           {!isSignedIn && (
             <Link
               href={`/${locale}/sign-in`}
@@ -79,4 +80,3 @@ export default function Home() {
     </div>
   );
 }
-

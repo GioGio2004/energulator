@@ -24,7 +24,15 @@ export default function LearningMap() {
   if (gameStatus === undefined) {
     return (
       <div className="flex-1 flex items-center justify-center min-h-[50vh]">
-        <div className="w-10 h-10 border-4 border-[#58cc02]/30 border-t-[#58cc02] rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (gameStatus === null) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[50vh]">
+        <p className="text-white/40 font-medium tracking-wide">No game data found. Start a lesson to begin!</p>
       </div>
     );
   }
@@ -32,19 +40,20 @@ export default function LearningMap() {
   const { completedLessons, currentModuleId } = gameStatus;
 
   return (
-    <div className="relative min-h-[120vh] w-full flex flex-col items-center pt-24 pb-32 bg-white">
-      {/* Background Track */}
+    <div className="relative min-h-[120vh] w-full flex flex-col items-center pt-24 pb-32">
+      {/* Background Track - glowing line */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden flex justify-center mt-24">
         <svg
-          className="w-full max-w-md h-[1000px] text-[#e5e5e5]"
+          className="w-full max-w-md h-[1000px] text-cyan-500/20"
           preserveAspectRatio="none"
           viewBox="0 0 100 1000"
+          style={{ filter: "drop-shadow(0 0 8px rgba(34,211,238,0.3))" }}
         >
           <path
             d="M 50,0 C -20,100 120,200 50,300 C -20,400 120,500 50,600 C -20,700 120,800 50,900 C -20,1000 50,1000 50,1000"
             fill="none"
             stroke="currentColor"
-            strokeWidth="12"
+            strokeWidth="4"
             strokeLinecap="round"
           />
         </svg>
@@ -57,20 +66,18 @@ export default function LearningMap() {
           const isActive = currentModuleId === mod.id;
           const isLocked = !isCompleted && !isActive;
 
-          // Alternate left/right offset for organic feel
           const xOffset = index % 2 === 0 ? -40 : 40;
 
-          // Node styles based on state
           let buttonClass = "";
           let icon = "";
           if (isLocked) {
-            buttonClass = "bg-[#e5e5e5] border-[#cccccc] cursor-not-allowed";
+            buttonClass = "bg-white/5 border-white/10 text-white/30 cursor-not-allowed";
             icon = "🔒";
           } else if (isCompleted) {
-            buttonClass = "bg-[#ffc800] border-[#cc9e00] hover:brightness-110 active:border-b-0 active:mt-[6px]";
+            buttonClass = "bg-amber-400/20 border-amber-400/50 shadow-[0_0_20px_rgba(251,191,36,0.3)] hover:bg-amber-400/30";
             icon = "⭐";
           } else if (isActive) {
-            buttonClass = "bg-[#58cc02] border-[#46a302] hover:brightness-110 active:border-b-0 active:mt-[6px]";
+            buttonClass = "bg-cyan-400/20 border-cyan-400/50 shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:bg-cyan-400/30";
             icon = "🚀";
           }
 
@@ -85,23 +92,23 @@ export default function LearningMap() {
                   if (!isLocked) setSelectedModule(mod.id);
                 }}
                 disabled={isLocked}
-                className={`relative w-[80px] h-[80px] rounded-full flex items-center justify-center transition-all border-b-[6px] ${buttonClass}`}
+                className={`relative w-[76px] h-[76px] rounded-full flex items-center justify-center transition-all backdrop-blur-md border-2 ${buttonClass}`}
               >
                 {isActive && (
                   <motion.div
-                    className="absolute inset-0 rounded-full border-4 border-[#58cc02] -z-10"
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.8, 0, 0.8] }}
+                    className="absolute inset-0 rounded-full border border-cyan-400 -z-10"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.8, 0, 0.8] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                   />
                 )}
                 
-                <span className={`text-4xl drop-shadow-md ${isLocked ? 'grayscale opacity-50' : ''}`}>
+                <span className={`text-3xl drop-shadow-md ${isLocked ? 'grayscale opacity-40' : ''}`}>
                   {icon}
                 </span>
               </button>
 
-              <div className="mt-4 bg-white px-3 py-1.5 rounded-xl border-2 border-gray-200 text-center">
-                <p className={`text-[13px] font-bold tracking-wide ${isLocked ? "text-gray-400" : "text-gray-800"}`}>
+              <div className="mt-4 glass-panel px-4 py-1.5 rounded-full">
+                <p className={`text-[13px] font-bold tracking-wide ${isLocked ? "text-white/40" : "text-white text-glow"}`}>
                   {mod.title}
                 </p>
               </div>
@@ -118,7 +125,7 @@ export default function LearningMap() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 z-[60]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
               onClick={() => setSelectedModule(null)}
             />
             <motion.div
@@ -126,30 +133,30 @@ export default function LearningMap() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 inset-x-0 bg-white rounded-t-3xl p-6 pb-safe z-[70]"
+              className="fixed bottom-0 inset-x-0 glass-panel border-t border-white/20 rounded-t-3xl p-6 pb-safe z-[70] shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
             >
-              <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6" />
+              <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
               
               {MODULES.map(m => m.id === selectedModule && (
                 <div key={m.id} className="flex flex-col">
-                  <h3 className="text-2xl font-black text-gray-800 mb-2">{m.title}</h3>
-                  <p className="text-gray-500 font-medium mb-6">{m.desc}</p>
+                  <h3 className="text-2xl font-black text-white text-glow mb-2">{m.title}</h3>
+                  <p className="text-white/60 font-medium mb-6">{m.desc}</p>
                   
-                  <div className="flex items-center gap-3 bg-blue-50 p-4 rounded-2xl border-2 border-blue-100 mb-6">
-                    <span className="text-3xl drop-shadow-sm">💎</span>
+                  <div className="flex items-center gap-4 bg-cyan-950/40 p-4 rounded-2xl border border-cyan-500/30 mb-8 shadow-inner">
+                    <span className="text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">💎</span>
                     <div>
-                      <p className="text-[11px] font-bold text-[#1cb0f6] uppercase tracking-wider">Reward</p>
-                      <p className="text-lg font-black text-blue-900">+50 Watts</p>
+                      <p className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-0.5">Reward</p>
+                      <p className="text-lg font-black text-white">+50 Watts</p>
                     </div>
                   </div>
 
                   <button
-                    className="w-full bg-[#58cc02] border-b-[6px] border-[#46a302] hover:bg-[#61e002] active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all"
+                    className="w-full bg-cyan-500 hover:bg-cyan-400 text-cyan-950 font-black text-lg tracking-wider uppercase rounded-2xl py-4 transition-all shadow-[0_0_20px_rgba(34,211,238,0.4)] active:scale-[0.98]"
                     onClick={() => {
                       router.push(`/${locale}/play/${selectedModule}`);
                     }}
                   >
-                    START MISSION
+                    Start Mission
                   </button>
                 </div>
               ))}
@@ -160,4 +167,3 @@ export default function LearningMap() {
     </div>
   );
 }
-

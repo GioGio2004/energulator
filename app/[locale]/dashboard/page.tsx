@@ -54,7 +54,7 @@ export default function DashboardPage() {
 
   // The Learning Map layout prevents body scroll and manages its own internal overflow
   return (
-    <div className="fixed inset-0 bg-[#f9faf8] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-mesh-dark flex flex-col overflow-hidden text-white">
       <TopHeader />
       
       <main className="flex-1 overflow-y-auto overscroll-contain pb-20 scrollbar-hide">
