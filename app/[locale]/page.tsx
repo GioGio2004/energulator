@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { useDemoAuth } from "@/lib/useDemoAuth";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ import Image from "next/image";
 export default function Home() {
   const params = useParams();
   const locale = (params?.locale as string) || "en";
-  const { isSignedIn, isLoaded: clerkLoaded } = useUser();
+  const { isSignedIn, isLoaded: clerkLoaded } = useDemoAuth();
   const convexUser = useQuery(api.users.current);
 
   // Determine where "Get Started" should point

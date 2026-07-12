@@ -65,7 +65,9 @@ export default function LearningMap() {
         {MODULES_MAP.map((mod, index) => {
           const isCompleted = completedLessons.includes(mod.id);
           const isActive = currentModuleId === mod.id;
-          const isLocked = !isCompleted && !isActive;
+          
+          // DEMO MODE: Force lock all stages except the first one
+          const isLocked = mod.id !== "module_electricity_1";
           const title = t(`${mod.tPrefix}_title` as const);
 
           const xOffset = index % 2 === 0 ? -40 : 40;

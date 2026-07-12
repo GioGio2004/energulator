@@ -4,14 +4,14 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useDemoAuth } from "@/lib/useDemoAuth";
 import { useTranslations } from "next-intl";
 import TopHeader from "@/components/game/TopHeader";
 import BottomNav from "@/components/game/BottomNav";
 import LearningMap from "@/components/game/LearningMap";
 
 export default function DashboardPage() {
-  const { isSignedIn, isLoaded: clerkLoaded } = useUser();
+  const { isSignedIn, isLoaded: clerkLoaded, user: authUser, isGuest } = useDemoAuth();
   const user = useQuery(api.users.current);
   const router = useRouter();
   const params = useParams();

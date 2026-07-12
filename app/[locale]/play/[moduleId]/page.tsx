@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import UtilitySortingGame from "@/components/game/UtilitySortingGame";
-import GameWrapper from "@/components/game/GameWrapper";
+import RoomExplorer from "@/components/game/RoomExplorer";
 import HouseGame from "@/components/game/steps/secondstep";
 
 export default function PlayRoute() {
@@ -10,11 +10,11 @@ export default function PlayRoute() {
   const moduleId = (params?.moduleId as string) || "module_electricity_1";
   const locale = (params?.locale as string) || "en";
 
-  // Level 1 — Lightbulb Day/Night game (with Rive preloader)
+  // Level 1 — Spline Room Explorer
   if (moduleId === "module_electricity_1") {
     return (
       <div className="fixed inset-0 z-[100] overflow-hidden">
-        <GameWrapper />
+        <RoomExplorer />
       </div>
     );
   }

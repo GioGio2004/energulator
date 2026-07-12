@@ -8,7 +8,16 @@ export const getGameStatus = query({
   args: {},
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) return null;
+    if (!identity) {
+      // GUEST DEMO MODE: Return mock game status
+      return {
+        streak: 12,
+        watts: 450,
+        currentModuleId: "module_meter_1",
+        completedLessons: ["module_electricity_1"],
+        lastActiveTimestamp: Date.now(),
+      };
+    }
 
     const user = await ctx.db
       .query("users")
@@ -39,7 +48,12 @@ export const completeLesson = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Unauthenticated call to completeLesson");
+      // GUEST DEMO MODE: silently succeed
+      return {
+        success: true,
+        watts: 450 + args.wattsEarned,
+        streak: 12,
+      };
     }
 
     const user = await ctx.db
@@ -104,7 +118,11 @@ export const updateActiveModule = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Unauthenticated call to updateActiveModule");
+      // GUEST DEMO MODE: silently succeed
+      return {
+        success: true,
+        moduleId: args.moduleId,
+      };
     }
 
     const user = await ctx.db

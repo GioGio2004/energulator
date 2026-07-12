@@ -1,13 +1,14 @@
 "use client";
 
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useDemoAuth } from "@/lib/useDemoAuth";
 
 export default function ProfileContent() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useDemoAuth();
   const { signOut } = useClerk();
   const router = useRouter();
   const gameStatus = useQuery(api.game.getGameStatus);
@@ -30,6 +31,9 @@ export default function ProfileContent() {
   }
 
   const handleSignOut = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("energulator_guest");
+    }
     signOut(() => router.push("/"));
   };
 

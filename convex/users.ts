@@ -109,7 +109,19 @@ export const current = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      return null;
+      // GUEST DEMO MODE: Return mock user record
+      return {
+        _id: "demo_guest",
+        _creationTime: Date.now(),
+        name: "Guest Player",
+        externalId: "demo_guest",
+        isOnboarded: true,
+        onboarding: { baseType: "apartment", monthlyBill: 50, tariff: "standard" },
+        watts: 450,
+        streak: 12,
+        currentModuleId: "module_meter_1",
+        completedLessons: ["module_electricity_1"],
+      };
     }
 
     const user = await ctx.db

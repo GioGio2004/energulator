@@ -5,10 +5,10 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useDemoAuth } from "@/lib/useDemoAuth";
 
 export default function OnboardingPage() {
-  const { isSignedIn, isLoaded: clerkLoaded } = useUser();
+  const { isSignedIn, isLoaded: clerkLoaded } = useDemoAuth();
   const convexUser = useQuery(api.users.current);
   const router = useRouter();
   const params = useParams();
