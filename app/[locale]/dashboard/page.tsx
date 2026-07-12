@@ -58,42 +58,29 @@ export default function DashboardPage() {
       <TopHeader />
 
       <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide relative pt-20">
-        <div className="mb-10">
-          <LearningMap />
-        </div>
+        <LearningMap />
         {/* Ultimate Game Button Banner */}
-        <div className="px-4 mb-4 relative z-10 w-full max-w-md mx-auto">
-          <a
-            href="https://myenergy-three.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-[#1cb0f6] text-white p-4 rounded-[2rem] shadow-lg border-b-[4px] border-blue-700 active:border-b-0 active:translate-y-[4px] transition-all cursor-pointer"
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-3xl drop-shadow-md">🎮</span>
-              <div>
-                <h3 className="font-black text-lg tracking-wide uppercase drop-shadow-sm">
-                  The Ultimate Game
-                </h3>
-                <p className="font-medium text-blue-100 text-sm">
-                  Play the new experience
-                </p>
-              </div>
+        <div className="px-4 pb-12 relative z-10 w-full max-w-md mx-auto">
+          <div className="glass-panel-light rounded-3xl p-6 text-center shadow-sm border border-white/60">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-[#1cb0f6] to-purple-500 rounded-full flex items-center justify-center mb-4 shadow-inner border-4 border-white">
+              <span className="text-4xl">🏆</span>
             </div>
-            <svg
-              className="w-6 h-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <h2 className="text-2xl font-black text-gray-900 mb-2">
+              The Ultimate Game
+            </h2>
+            <p className="text-gray-600 font-medium mb-6 text-sm">
+              Ready to test everything you've learned? Step into the ultimate
+              energy challenge and see if you have what it takes.
+            </p>
+            <a
+              href="https://myenergy-three.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-[#ffc800] border-b-[6px] border-[#cc9e00] hover:brightness-110 active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all shadow-sm"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
+              PLAY NOW
+            </a>
+          </div>
         </div>
       </main>
 
