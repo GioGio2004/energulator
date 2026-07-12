@@ -230,27 +230,28 @@ input[type="range"] {
   }
 }
 
-/* ─── Glassmorphism Utilities ────────────────────────────────── */
+/* ─── Global Background & Light Glass Utilities ────────────────── */
 @layer utilities {
-  .bg-mesh-dark {
-    background-color: #060612;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
+  .bg-app-global {
+    background-color: #f9faf8;
+    background-image: url('/energular-onboarding-bg.jpg');
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
   }
   
-  .glass-panel {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)];
+  @media (min-width: 768px) {
+    .bg-app-global {
+      background-image: url('/desktopbg.jpg');
+    }
   }
   
   .glass-panel-light {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)];
+    @apply bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)];
   }
 
-  .text-glow {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  .glass-pill {
+    @apply bg-white/80 backdrop-blur-lg border border-white shadow-sm;
   }
 }
