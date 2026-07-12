@@ -58,7 +58,7 @@ export default function DashboardPage() {
       <TopHeader />
 
       <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide relative pt-20">
-        <div className="-mt-20">
+        <div className="mb-10">
           <LearningMap />
         </div>
         {/* Ultimate Game Button Banner */}
