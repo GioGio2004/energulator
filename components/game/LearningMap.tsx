@@ -5,13 +5,14 @@ import { api } from "@/convex/_generated/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
-const MODULES = [
-  { id: "module_electricity_1", title: "Electricity Grid", desc: "Understand the flow." },
-  { id: "module_meter_1", title: "Reading the Meter", desc: "Decode the numbers." },
-  { id: "module_breakers_1", title: "Circuit Breakers", desc: "Safety first." },
-  { id: "module_solar_1", title: "Solar Basics", desc: "Harness the sun." },
-  { id: "module_wind_1", title: "Wind Power", desc: "Catch the breeze." },
+const MODULES_MAP = [
+  { id: "module_electricity_1", tPrefix: "module1" },
+  { id: "module_meter_1", tPrefix: "module2" },
+  { id: "module_breakers_1", tPrefix: "module3" },
+  { id: "module_solar_1", tPrefix: "module4" },
+  { id: "module_wind_1", tPrefix: "module5" },
 ];
 
 export default function LearningMap() {
@@ -20,6 +21,7 @@ export default function LearningMap() {
   const locale = (params?.locale as string) || "en";
   const gameStatus = useQuery(api.game.getGameStatus);
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
+  const t = useTranslations("learningMap");
 
   if (gameStatus === undefined) {
     return (
@@ -60,10 +62,11 @@ export default function LearningMap() {
 
       {/* Nodes */}
       <div className="relative w-full max-w-md flex flex-col items-center gap-24 py-12 z-10">
-        {MODULES.map((mod, index) => {
+        {MODULES_MAP.map((mod, index) => {
           const isCompleted = completedLessons.includes(mod.id);
           const isActive = currentModuleId === mod.id;
           const isLocked = !isCompleted && !isActive;
+          const title = t(`${mod.tPrefix}_title` as const);
 
           const xOffset = index % 2 === 0 ? -40 : 40;
 
@@ -106,9 +109,9 @@ export default function LearningMap() {
                 </span>
               </button>
 
-              <div className="mt-4 glass-pill px-4 py-1.5 rounded-xl text-center">
-                <p className={`text-[13px] font-bold tracking-wide ${isLocked ? "text-gray-400" : "text-gray-800"}`}>
-                  {mod.title}
+              <div className="mt-4 glass-pill px-4 py-1.5 rounded-xl text-center max-w-[140px]">
+                <p className={`text-[13px] font-bold tracking-wide leading-tight ${isLocked ? "text-gray-400" : "text-gray-800"}`}>
+                  {title}
                 </p>
               </div>
             </div>
@@ -135,39 +138,44 @@ export default function LearningMap() {
               className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
             >
               <div className="glass-panel-light rounded-3xl p-6 w-full max-w-sm pointer-events-auto shadow-2xl">
-                {MODULES.map(m => m.id === selectedModule && (
-                  <div key={m.id} className="flex flex-col">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-2xl font-black text-gray-900">{m.title}</h3>
-                      <button 
-                        onClick={() => setSelectedModule(null)}
-                        className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition-colors"
+                {MODULES_MAP.map(m => {
+                  if (m.id !== selectedModule) return null;
+                  const title = t(`${m.tPrefix}_title` as const);
+                  const desc = t(`${m.tPrefix}_desc` as const);
+                  return (
+                    <div key={m.id} className="flex flex-col">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="text-2xl font-black text-gray-900 leading-tight">{title}</h3>
+                        <button 
+                          onClick={() => setSelectedModule(null)}
+                          className="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition-colors flex-shrink-0"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                      <p className="text-gray-600 font-medium mb-6">{desc}</p>
+                      
+                      <div className="flex items-center gap-3 bg-blue-50/80 p-4 rounded-2xl border-2 border-blue-100 mb-6 shadow-sm">
+                        <span className="text-3xl drop-shadow-sm">💎</span>
+                        <div>
+                          <p className="text-[11px] font-bold text-[#1cb0f6] uppercase tracking-wider">{t('reward')}</p>
+                          <p className="text-lg font-black text-blue-900">+50 {t('watts')}</p>
+                        </div>
+                      </div>
+
+                      <button
+                        className="w-full bg-[#58cc02] border-b-[6px] border-[#46a302] hover:bg-[#61e002] active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all"
+                        onClick={() => {
+                          router.push(`/${locale}/play/${selectedModule}`);
+                        }}
                       >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        {t('startMission')}
                       </button>
                     </div>
-                    <p className="text-gray-600 font-medium mb-6">{m.desc}</p>
-                    
-                    <div className="flex items-center gap-3 bg-blue-50/80 p-4 rounded-2xl border-2 border-blue-100 mb-6 shadow-sm">
-                      <span className="text-3xl drop-shadow-sm">💎</span>
-                      <div>
-                        <p className="text-[11px] font-bold text-[#1cb0f6] uppercase tracking-wider">Reward</p>
-                        <p className="text-lg font-black text-blue-900">+50 Watts</p>
-                      </div>
-                    </div>
-
-                    <button
-                      className="w-full bg-[#58cc02] border-b-[6px] border-[#46a302] hover:bg-[#61e002] active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all"
-                      onClick={() => {
-                        router.push(`/${locale}/play/${selectedModule}`);
-                      }}
-                    >
-                      START MISSION
-                    </button>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </motion.div>
           </>

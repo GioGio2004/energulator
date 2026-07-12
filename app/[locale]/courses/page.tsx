@@ -3,8 +3,12 @@
 import TopHeader from "@/components/game/TopHeader";
 import BottomNav from "@/components/game/BottomNav";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import { useTranslations } from "next-intl";
+import CourseQuiz from "@/components/game/CourseQuiz";
 
 export default function CoursesPage() {
+  const t = useTranslations("courses");
+
   return (
     <div className="fixed top-0 inset-x-0 h-[100dvh] bg-app-global flex flex-col overflow-hidden text-gray-900 overscroll-none">
       <TopHeader />
@@ -14,13 +18,13 @@ export default function CoursesPage() {
           
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold text-[#2d5a27] mb-2 tracking-tight">Grid Academy</h1>
-            <p className="text-sm text-gray-700 font-medium">Master the fundamentals of energy.</p>
+            <h1 className="text-3xl font-extrabold text-[#2d5a27] mb-2 tracking-tight">{t('title')}</h1>
+            <p className="text-sm text-gray-700 font-medium">{t('subtitle')}</p>
           </div>
 
           {/* Course 1: FirstEnergy Journey */}
           <div className="glass-panel-light rounded-3xl p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">The Journey of Electricity</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('course1_title')}</h2>
             
             <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
               <HeroVideoDialog
@@ -32,34 +36,35 @@ export default function CoursesPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Key Takeaways</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{t('keyTakeaways')}</h3>
               
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-cyan-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Generation (0:16-0:24):</span> Electricity is created at power generating facilities using various fuel sources, including coal, nuclear energy, natural gas, and renewable resources like wind and solar.
+                  <span className="font-bold text-gray-900">{t('course1_tk1_bold')}</span> {t('course1_tk1_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-amber-400 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Transmission (0:25-0:37):</span> Once generated, electricity moves across a network of high-voltage transmission lines, which act as the backbone of the electric grid to transport power over long distances.
+                  <span className="font-bold text-gray-900">{t('course1_tk2_bold')}</span> {t('course1_tk2_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-purple-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Distribution (0:38-0:59):</span> Electricity arrives at a neighborhood substation, where the voltage is lowered to a safe, usable level. From there, it travels along the poles and wires in your community directly to your home's power outlet.
+                  <span className="font-bold text-gray-900">{t('course1_tk3_bold')}</span> {t('course1_tk3_text')}
                 </p>
               </div>
             </div>
+          <CourseQuiz courseId={1} />
           </div>
 
           {/* Course 2: Solar PV Explainer */}
           <div className="glass-panel-light rounded-3xl p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">How Home Solar Energy Systems Operate</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('course2_title')}</h2>
             
             <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
               <HeroVideoDialog
@@ -71,48 +76,49 @@ export default function CoursesPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Key Takeaways</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{t('keyTakeaways')}</h3>
               
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-amber-400 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">How Solar PV Works:</span> Solar panels, or solar PV, use semiconducting material to absorb sunlight and convert it into electricity (0:00-0:11).
+                  <span className="font-bold text-gray-900">{t('course2_tk1_bold')}</span> {t('course2_tk1_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-green-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Conversion & Usage:</span> The electricity produced is direct current (DC), which must be converted to alternating current (AC) via an inverter to be safe and usable for home appliances (0:17-0:30).
+                  <span className="font-bold text-gray-900">{t('course2_tk2_bold')}</span> {t('course2_tk2_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-blue-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Monitoring:</span> A meter installed in your home allows you to track real-time electricity generation (0:33-0:37).
+                  <span className="font-bold text-gray-900">{t('course2_tk3_bold')}</span> {t('course2_tk3_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-orange-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Limitations & Grid Dependency:</span> Generation is weather-dependent; panels produce less on dull days and do not work at night. Because of this, homeowners typically remain connected to the National Grid.
+                  <span className="font-bold text-gray-900">{t('course2_tk4_bold')}</span> {t('course2_tk4_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-purple-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Storage & Export:</span> While a solar battery can store excess energy, it usually isn't enough to make a home entirely self-sufficient. Any unused or unstored electricity is exported back to the grid.
+                  <span className="font-bold text-gray-900">{t('course2_tk5_bold')}</span> {t('course2_tk5_text')}
                 </p>
               </div>
             </div>
+          <CourseQuiz courseId={2} />
           </div>
 
           {/* Course 3: Hydro-Québec Substation */}
           <div className="glass-panel-light rounded-3xl p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Tour of an Electrical Substation</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('course3_title')}</h2>
             
             <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
               <HeroVideoDialog
@@ -124,50 +130,51 @@ export default function CoursesPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Key Functions</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{t('course3_keyFunctions')}</h3>
               
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-blue-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Voltage Adjustment:</span> The primary role is to raise or lower voltage levels. Electricity traveling at 735,000 volts must be stepped down to 120 or 240 volts for safe household use (0:57 - 1:12).
+                  <span className="font-bold text-gray-900">{t('course3_tk1_bold')}</span> {t('course3_tk1_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-cyan-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Grid Protection & Direction:</span> Substations direct electricity along the power grid and protect equipment through automated systems (0:43 - 0:48).
+                  <span className="font-bold text-gray-900">{t('course3_tk2_bold')}</span> {t('course3_tk2_text')}
                 </p>
               </div>
 
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mt-6 mb-3">Key Equipment</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mt-6 mb-3">{t('course3_keyEquipment')}</h3>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-orange-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Power Transformers:</span> The "heart" of the substation, responsible for changing the voltage (2:34 - 2:43).
+                  <span className="font-bold text-gray-900">{t('course3_tk3_bold')}</span> {t('course3_tk3_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-red-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Breakers & Disconnect Switches:</span> These act as safety mechanisms that can cut power automatically during a fault or manually for maintenance (1:50 - 2:31).
+                  <span className="font-bold text-gray-900">{t('course3_tk4_bold')}</span> {t('course3_tk4_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-amber-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Surge Arresters & Grounding:</span> Critical safety devices that protect against over-voltage, such as lightning strikes, by directing excess electricity into the ground (2:50 - 3:12).
+                  <span className="font-bold text-gray-900">{t('course3_tk5_bold')}</span> {t('course3_tk5_text')}
                 </p>
               </div>
             </div>
+          <CourseQuiz courseId={3} />
           </div>
 
           {/* Course 4: How Solar Cells Work */}
           <div className="glass-panel-light rounded-3xl p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Can 100% of the World Run on Solar?</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('course4_title')}</h2>
             
             <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
               <HeroVideoDialog
@@ -179,29 +186,30 @@ export default function CoursesPage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Key Takeaways</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{t('keyTakeaways')}</h3>
               
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-yellow-400 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">How Solar Cells Work (0:33 - 2:37):</span> When photons strike silicon, they dislodge electrons, creating an electric current due to the electric field created at the PN junction between N-type and P-type silicon layers.
+                  <span className="font-bold text-gray-900">{t('course4_tk1_bold')}</span> {t('course4_tk1_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-red-400 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Challenges (2:37 - 3:44):</span> Solar energy is inconsistent based on geography and weather. Moving electricity and developing efficient storage are major logistical challenges. Most commercial systems are only 15–20% efficient.
+                  <span className="font-bold text-gray-900">{t('course4_tk2_bold')}</span> {t('course4_tk2_text')}
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <div className="w-1.5 rounded-full bg-green-500 shadow-sm flex-shrink-0" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold text-gray-900">Future Outlook (3:44 - 4:45):</span> Powering the world with solar technology is physically possible. Costs are decreasing, and innovations like floating solar farms are emerging. It already provides a safer alternative to kerosene in off-grid regions.
+                  <span className="font-bold text-gray-900">{t('course4_tk3_bold')}</span> {t('course4_tk3_text')}
                 </p>
               </div>
             </div>
+          <CourseQuiz courseId={4} />
           </div>
           
         </div>

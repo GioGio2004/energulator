@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 import TopHeader from "@/components/game/TopHeader";
 import BottomNav from "@/components/game/BottomNav";
 import LearningMap from "@/components/game/LearningMap";
@@ -15,6 +16,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const params = useParams();
   const locale = (params?.locale as string) || "en";
+  const t = useTranslations("dashboard");
 
   useEffect(() => {
     // Wait until Clerk has resolved before making redirect decisions
@@ -58,7 +60,9 @@ export default function DashboardPage() {
       <TopHeader />
 
       <main className="flex-1 overflow-y-auto overscroll-none pb-32 scrollbar-hide relative pt-20">
-        <LearningMap />
+        <div className="mb-10">
+          <LearningMap />
+        </div>
         {/* Ultimate Game Button Banner */}
         <div className="px-4 pb-12 relative z-10 w-full max-w-md mx-auto">
           <div className="glass-panel-light rounded-3xl p-6 text-center shadow-sm border border-white/60">
@@ -66,11 +70,10 @@ export default function DashboardPage() {
               <span className="text-4xl">🏆</span>
             </div>
             <h2 className="text-2xl font-black text-gray-900 mb-2">
-              The Ultimate Game
+              {t('ultimateGameTitle')}
             </h2>
             <p className="text-gray-600 font-medium mb-6 text-sm">
-              Ready to test everything you've learned? Step into the ultimate
-              energy challenge and see if you have what it takes.
+              {t('ultimateGameDesc')}
             </p>
             <a
               href="https://myenergy-three.vercel.app/"
@@ -78,7 +81,7 @@ export default function DashboardPage() {
               rel="noopener noreferrer"
               className="block w-full bg-[#ffc800] border-b-[6px] border-[#cc9e00] hover:brightness-110 active:border-b-0 active:translate-y-[6px] text-white font-black text-xl rounded-2xl py-4 transition-all shadow-sm"
             >
-              PLAY NOW
+              {t('playNow')}
             </a>
           </div>
         </div>

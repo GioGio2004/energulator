@@ -3,10 +3,130 @@
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
-  "home": {
-    "title": "Welcome to Energulator",
-    "description": "Get started by editing the page.tsx file.",
-    "deployNow": "Deploy Now",
-    "documentation": "Documentation"
+  "nav": {
+    "play": "PLAY",
+    "daily": "DAILY",
+    "courses": "COURSES",
+    "profile": "PROFILE"
+  },
+  "dashboard": {
+    "ultimateGameTitle": "The Ultimate Game",
+    "ultimateGameDesc": "Ready to test everything you've learned? Step into the ultimate energy challenge and see if you have what it takes.",
+    "playNow": "PLAY NOW"
+  },
+  "learningMap": {
+    "module1_title": "Electricity Grid",
+    "module1_desc": "Understand the flow.",
+    "module2_title": "Reading the Meter",
+    "module2_desc": "Decode the numbers.",
+    "module3_title": "Circuit Breakers",
+    "module3_desc": "Safety first.",
+    "module4_title": "Solar Basics",
+    "module4_desc": "Harness the sun.",
+    "module5_title": "Wind Power",
+    "module5_desc": "Catch the breeze.",
+    "startMission": "START MISSION",
+    "reward": "Reward",
+    "watts": "Watts"
+  },
+  "courses": {
+    "title": "Grid Academy",
+    "subtitle": "Master the fundamentals of energy.",
+    "keyTakeaways": "Key Takeaways",
+    "course1_title": "The Journey of Electricity",
+    "course1_tk1_bold": "Generation (0:16-0:24):",
+    "course1_tk1_text": "Electricity is created at power generating facilities using various fuel sources, including coal, nuclear energy, natural gas, and renewable resources like wind and solar.",
+    "course1_tk2_bold": "Transmission (0:25-0:37):",
+    "course1_tk2_text": "Once generated, electricity moves across a network of high-voltage transmission lines, which act as the backbone of the electric grid to transport power over long distances.",
+    "course1_tk3_bold": "Distribution (0:38-0:59):",
+    "course1_tk3_text": "Electricity arrives at a neighborhood substation, where the voltage is lowered to a safe, usable level. From there, it travels along the poles and wires in your community directly to your home's power outlet.",
+    "course2_title": "How Home Solar Energy Systems Operate",
+    "course2_tk1_bold": "How Solar PV Works:",
+    "course2_tk1_text": "Solar panels, or solar PV, use semiconducting material to absorb sunlight and convert it into electricity (0:00-0:11).",
+    "course2_tk2_bold": "Conversion & Usage:",
+    "course2_tk2_text": "The electricity produced is direct current (DC), which must be converted to alternating current (AC) via an inverter to be safe and usable for home appliances (0:17-0:30).",
+    "course2_tk3_bold": "Monitoring:",
+    "course2_tk3_text": "A meter installed in your home allows you to track real-time electricity generation (0:33-0:37).",
+    "course2_tk4_bold": "Limitations & Grid Dependency:",
+    "course2_tk4_text": "Generation is weather-dependent; panels produce less on dull days and do not work at night. Because of this, homeowners typically remain connected to the National Grid.",
+    "course2_tk5_bold": "Storage & Export:",
+    "course2_tk5_text": "While a solar battery can store excess energy, it usually isn't enough to make a home entirely self-sufficient. Any unused or unstored electricity is exported back to the grid.",
+    "course3_title": "Tour of an Electrical Substation",
+    "course3_keyFunctions": "Key Functions",
+    "course3_tk1_bold": "Voltage Adjustment:",
+    "course3_tk1_text": "The primary role is to raise or lower voltage levels. Electricity traveling at 735,000 volts must be stepped down to 120 or 240 volts for safe household use (0:57 - 1:12).",
+    "course3_tk2_bold": "Grid Protection & Direction:",
+    "course3_tk2_text": "Substations direct electricity along the power grid and protect equipment through automated systems (0:43 - 0:48).",
+    "course3_keyEquipment": "Key Equipment",
+    "course3_tk3_bold": "Power Transformers:",
+    "course3_tk3_text": "The \"heart\" of the substation, responsible for changing the voltage (2:34 - 2:43).",
+    "course3_tk4_bold": "Breakers & Disconnect Switches:",
+    "course3_tk4_text": "These act as safety mechanisms that can cut power automatically during a fault or manually for maintenance (1:50 - 2:31).",
+    "course3_tk5_bold": "Surge Arresters & Grounding:",
+    "course3_tk5_text": "Critical safety devices that protect against over-voltage, such as lightning strikes, by directing excess electricity into the ground (2:50 - 3:12).",
+    "course4_title": "Can 100% of the World Run on Solar?",
+    "course4_tk1_bold": "How Solar Cells Work (0:33 - 2:37):",
+    "course4_tk1_text": "When photons strike silicon, they dislodge electrons, creating an electric current due to the electric field created at the PN junction between N-type and P-type silicon layers.",
+    "course4_tk2_bold": "Challenges (2:37 - 3:44):",
+    "course4_tk2_text": "Solar energy is inconsistent based on geography and weather. Moving electricity and developing efficient storage are major logistical challenges. Most commercial systems are only 15–20% efficient.",
+    "course4_tk3_bold": "Future Outlook (3:44 - 4:45):",
+    "course4_tk3_text": "Powering the world with solar technology is physically possible. Costs are decreasing, and innovations like floating solar farms are emerging. It already provides a safer alternative to kerosene in off-grid regions."
+  },
+  "profile": {
+    "logout": "Log Out",
+    "yourProgress": "Your Progress",
+    "dayStreak": "Day Streak",
+    "missionsCompleted": "Missions Completed",
+    "loginRequired": "Please log in to view your profile.",
+    "noProgress": "No progress data recorded yet."
+  },
+  "quizzes": {
+    "ui": {
+      "testKnowledge": "Test Your Knowledge 🧠",
+      "correct": "Correct! 🎉",
+      "incorrect": "Oops! Try again.",
+      "finishQuiz": "Quiz Completed!",
+      "nextQuestion": "NEXT"
+    },
+    "course1": {
+      "q0": "What acts as the backbone of the electric grid?",
+      "q0_o0": "Neighborhood substations",
+      "q0_o1": "High-voltage transmission lines",
+      "q0_o2": "Household power outlets",
+      "q1": "Where is voltage lowered to a safe, usable level?",
+      "q1_o0": "Power generating facility",
+      "q1_o1": "Transmission lines",
+      "q1_o2": "Neighborhood substation"
+    },
+    "course2": {
+      "q0": "What material do solar panels use to absorb sunlight?",
+      "q0_o0": "Semiconducting material",
+      "q0_o1": "Copper wiring",
+      "q0_o2": "Lithium-ion",
+      "q1": "Why do solar homeowners typically remain connected to the National Grid?",
+      "q1_o0": "Because solar panels produce DC electricity",
+      "q1_o1": "Because generation is weather-dependent and stops at night",
+      "q1_o2": "Because they need a meter to monitor generation"
+    },
+    "course3": {
+      "q0": "What is the primary role of a substation?",
+      "q0_o0": "To generate electricity",
+      "q0_o1": "To raise or lower voltage levels",
+      "q0_o2": "To store excess energy",
+      "q1": "What is considered the \"heart\" of the substation?",
+      "q1_o0": "Circuit Breakers",
+      "q1_o1": "Surge Arresters",
+      "q1_o2": "Power Transformers"
+    },
+    "course4": {
+      "q0": "What happens when photons strike silicon in a solar cell?",
+      "q0_o0": "They dislodge electrons",
+      "q0_o1": "They produce heat",
+      "q0_o2": "They store energy",
+      "q1": "What is the approximate efficiency of most commercial solar systems?",
+      "q1_o0": "50-60%",
+      "q1_o1": "90-100%",
+      "q1_o2": "15-20%"
+    }
   }
 }

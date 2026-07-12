@@ -2,12 +2,13 @@
 
 import { useRouter, useParams, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const TABS = [
-  { id: "play",    label: "PLAY",    href: "/dashboard" },
-  { id: "daily",   label: "DAILY",   href: "/daily", locked: true },
-  { id: "courses", label: "COURSES", href: "/courses" },
-  { id: "profile", label: "PROFILE", href: "/profile" },
+  { id: "play",    href: "/dashboard" },
+  { id: "daily",   href: "/daily", locked: true },
+  { id: "courses", href: "/courses" },
+  { id: "profile", href: "/profile" },
 ];
 
 export default function BottomNav() {
@@ -15,6 +16,7 @@ export default function BottomNav() {
   const params = useParams();
   const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
+  const t = useTranslations("nav");
 
   // Determine active tab from current URL
   const activeTab = (() => {
@@ -56,7 +58,7 @@ export default function BottomNav() {
                 }`}
               >
                 {isLocked && <span className="text-xs">🔒</span>}
-                {tab.label}
+                {t(tab.id)}
               </span>
             </button>
           );
