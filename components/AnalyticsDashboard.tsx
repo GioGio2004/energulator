@@ -28,10 +28,10 @@ export default function AnalyticsDashboard() {
           {convexUser?.onboarding ? (
             <>
               <p className="text-4xl font-black text-[#2d5a27] mt-auto">
-                ${Math.round(convexUser.onboarding.monthlyBill * 0.21 * 12).toLocaleString()}/yr
+                ${Math.round((convexUser.onboarding.monthlyBill || 0) * 0.21 * 12).toLocaleString()}/yr
               </p>
               <p className="text-xs text-[#2d5a27] font-semibold mt-4">
-                ✅ Based on your {convexUser.onboarding.tariff} plan
+                ✅ Based on your {convexUser.onboarding.tariff || "current"} plan
               </p>
             </>
           ) : (
@@ -49,7 +49,7 @@ export default function AnalyticsDashboard() {
         <div className="bg-white rounded-3xl p-8 shadow-sm border border-[#2d5a27]/10 flex flex-col md:col-span-2 lg:col-span-1">
           <h2 className="text-lg font-bold text-[#1a1a1a] mb-2">Monthly Bill</h2>
           <p className="text-4xl font-black text-[#2d5a27] mt-auto">
-            {convexUser?.onboarding
+            {convexUser?.onboarding?.monthlyBill !== undefined
               ? `$${convexUser.onboarding.monthlyBill}/mo`
               : "Loading…"}
           </p>
