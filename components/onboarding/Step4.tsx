@@ -41,9 +41,20 @@ export default function Step4({ data }: { data: OnboardingData }) {
     let mounted = true;
     
     // Wait until Convex has received the authentication token from Clerk
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) {
+      // If auth hasn't arrived within 8s, show an error instead of freezing
+      const authTimeout = setTimeout(() => {
+        if (mounted && !isAuthenticated) {
+          setError("Authentication timed out. Please sign out and sign back in.");
+        }
+      }, 8000);
+      return () => {
+        mounted = false;
+        clearTimeout(authTimeout);
+      };
+    }
 
-    // Auto-save after a short delay for dramatic effect
+    // Auth is ready — auto-save after a short delay for dramatic effect
     const timer = setTimeout(() => {
       if (mounted) {
         saveAndLaunch();
