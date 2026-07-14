@@ -1,80 +1,66 @@
 "use client";
 
-import * as THREE from "three";
-import React, { useEffect, useMemo, useState } from "react";
-import { useGLTF, Html } from "@react-three/drei";
+import { useState } from "react";
+import { Html } from "@react-three/drei";
 import type { ThreeElements, ThreeEvent } from "@react-three/fiber";
 
 type GroupProps = ThreeElements["group"];
 
 export type MountainProps = GroupProps & {
-  /** Override material color. Defaults to warm gray #9ca3af */
   color?: string;
-  /** Label text shown in the tooltip. Defaults to შხარა */
   label?: string;
+  onSelect?: (label: string) => void;
 };
 
+const PEAKS = [
+  { position: [0, 1.8, 0] as const, radius: 3.7, height: 7.2 },
+  { position: [-3.2, 1.2, 1.3] as const, radius: 2.7, height: 5.4 },
+  { position: [3, 1.1, 1] as const, radius: 2.5, height: 5 },
+  { position: [0.8, 0.8, -2.4] as const, radius: 2.2, height: 4.3 },
+];
+
 export function Mountain({
-  color = "#9ca3af",
-  label = "შხარა",
+  color = "#6f776f",
+  label = "Highland Peaks",
+  onSelect,
   ...props
 }: MountainProps) {
-  const { scene } = useGLTF("/game-assets/mountain.gltf");
-  const [showLabel, setShowLabel] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
-  // Clone so multiple instances are independent
-  const clonedScene = useMemo(() => scene.clone(), [scene]);
-
-  // Apply shared material to all pyramid meshes
-  useEffect(() => {
-    clonedScene.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        mesh.material = new THREE.MeshStandardMaterial({
-          color,
-          roughness: 0.85,
-          metalness: 0.0,
-        });
-      }
-    });
-  }, [clonedScene, color]);
-
-  const handleClick = (e: ThreeEvent<MouseEvent>) => {
-    e.stopPropagation();
-    setShowLabel((prev) => !prev);
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+    event.stopPropagation();
+    onSelect?.(label);
   };
 
   return (
-    <group {...props} dispose={null}>
-      <primitive object={clonedScene} onClick={handleClick} />
-
-      {/* Tooltip — positioned above the mountain group */}
-      {showLabel && (
-        <Html
-          position={[0, 2.5, 0]}
-          center
-          distanceFactor={8}
-          zIndexRange={[100, 0]}
-          occlude
-        >
-          <div
-            className="
-              bg-gray-900/95 text-white
-              rounded-md px-4 py-2
-              text-sm font-semibold
-              shadow-xl shadow-black/40
-              ring-1 ring-white/10
-              backdrop-blur-sm
-              cursor-pointer
-              select-none
-              transition-all duration-200
-              hover:bg-gray-800/95
-              whitespace-nowrap
-            "
-            onClick={() => setShowLabel(false)}
-          >
+    <group
+      {...props}
+      onClick={handleClick}
+      onPointerOver={(event) => {
+        event.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = "auto";
+      }}
+    >
+      {PEAKS.map((peak, index) => (
+        <group key={index} position={peak.position}>
+          <mesh castShadow receiveShadow rotation={[0, index * 0.72, 0]} scale={hovered ? 1.025 : 1}>
+            <coneGeometry args={[peak.radius, peak.height, 7, 2]} />
+            <meshStandardMaterial color={color} roughness={1} flatShading />
+          </mesh>
+          <mesh position={[0, peak.height * 0.28, 0]} rotation={[0, index * 0.72, 0]}>
+            <coneGeometry args={[peak.radius * 0.34, peak.height * 0.3, 7]} />
+            <meshStandardMaterial color="#e9eee8" roughness={0.9} flatShading />
+          </mesh>
+        </group>
+      ))}
+      {hovered && (
+        <Html position={[0, 7, 0]} center distanceFactor={12} style={{ pointerEvents: "none" }}>
+          <div className="whitespace-nowrap rounded-full border border-white/20 bg-slate-950/90 px-3 py-1.5 text-xs font-semibold text-white shadow-xl backdrop-blur-md">
             {label}
           </div>
         </Html>
@@ -82,5 +68,3 @@ export function Mountain({
     </group>
   );
 }
-
-useGLTF.preload("/game-assets/mountain.gltf");
