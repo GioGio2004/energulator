@@ -102,7 +102,7 @@ function World({ onSelect, controlsRef }: { onSelect: (label: string) => void; c
     <>
       <color attach="background" args={["#9dc8d2"]} />
       <fog attach="fog" args={["#9dc8d2", 48, 92]} />
-      <PerspectiveCamera makeDefault position={[35, 32, 38]} fov={38} near={0.1} far={180} />
+      <PerspectiveCamera makeDefault position={[34, 36, 40]} fov={35} near={0.1} far={180} />
       <MapControls
         ref={controlsRef}
         makeDefault

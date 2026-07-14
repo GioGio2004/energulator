@@ -10,15 +10,20 @@ export type SilandProps = GroupProps & {
   color?: string;
 };
 
-const COAST = [
-  [-21, -5], [-19, -12], [-13, -18], [-5, -20], [3, -19], [10, -17],
-  [17, -12], [21, -5], [20, 3], [17, 11], [10, 17], [2, 20],
-  [-7, 19], [-15, 15], [-20, 8], [-22, 1],
+const SQUARE_COAST = [
+  [-20, -17],
+  [17, -17],
+  [20, -14],
+  [20, 14],
+  [17, 17],
+  [-17, 17],
+  [-20, 14],
+  [-20, -14],
 ] as const;
 
 function makeShape(scale: number) {
   const shape = new THREE.Shape();
-  COAST.forEach(([x, y], index) => {
+  SQUARE_COAST.forEach(([x, y], index) => {
     const px = x * scale;
     const py = y * scale;
     if (index === 0) shape.moveTo(px, py);
@@ -41,9 +46,9 @@ export function Siland({ color = "#75a95a", ...props }: SilandProps) {
       });
 
     return {
-      rock: create(1, 1.8, 0.65),
-      sand: create(0.94, 0.55, 0.5),
-      grass: create(0.88, 0.65, 0.4),
+      rock: create(1, 2.8, 0.45),
+      sand: create(0.965, 0.45, 0.3),
+      grass: create(0.94, 0.55, 0.24),
     };
   }, []);
 
